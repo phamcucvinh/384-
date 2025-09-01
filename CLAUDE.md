@@ -2,275 +2,318 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Project Overview
+## Repository Overview
 
-This is a Python project optimized for modern Python development. The project uses industry-standard tools and follows best practices for scalable application development.
+This is a complex multi-project workspace containing diverse software projects across different domains including AI frameworks, trading systems, security tools, web applications, and research projects. The repository serves as a development workspace with active projects in various stages of development.
 
-## Development Commands
+## Key Project Categories
 
-### Environment Management
-- `python -m venv venv` - Create virtual environment
-- `source venv/bin/activate` (Linux/Mac) or `venv\Scripts\activate` (Windows) - Activate virtual environment
-- `deactivate` - Deactivate virtual environment
-- `pip install -r requirements.txt` - Install dependencies
-- `pip install -r requirements-dev.txt` - Install development dependencies
+### AI/ML Frameworks & Tools
+- **agentic-radar**: Poetry-based Python library for generating agentic system reports
+- **cai**: Modern UV-based cybersecurity AI framework with multi-agent capabilities
+- **SuperClaude_Framework**: Claude Code extension framework with command system and MCP integration
+- **llm-guard**: Security framework for LLM applications
+- **promptfoo**: LLM evaluation and red teaming toolkit (TypeScript/Node.js)
 
-### Package Management
-- `pip install <package>` - Install a package
-- `pip install -e .` - Install project in development mode
-- `pip freeze > requirements.txt` - Generate requirements file
-- `pip-tools compile requirements.in` - Compile requirements with pip-tools
+### Financial Trading Systems & Libraries
+- **MQ4/**: MetaTrader 4/5 trading ecosystem
+  - EA31337, nomadtown-ea-system, and trading indicators
+  - **IMPORTANT**: Educational/research purposes only
+- **aaaa/**: 40+ quantitative finance libraries collection
+  - Major libraries: freqtrade (40k stars), ccxt (32k stars), openbb (28k stars)
+  - pandas, numpy, matplotlib (scientific computing stack)
+  - Research papers from Goldman Sachs, JPMorgan, academic institutions
+- **ea31337-src/**: Expert Advisor source code collection
 
-### Testing Commands
-- `pytest` - Run all tests
-- `pytest -v` - Run tests with verbose output
-- `pytest --cov` - Run tests with coverage report
-- `pytest --cov-report=html` - Generate HTML coverage report
-- `pytest -x` - Stop on first failure
-- `pytest -k "test_name"` - Run specific test by name
-- `python -m unittest` - Run tests with unittest
+### Security & Network Tools
+- **medusa/**: C/Autotools network login brute-forcer
+  - **WARNING**: Security research only - authorized testing required
+  - Modular design with 20+ protocol modules (SSH, HTTP, SMB, etc.)
+  - Built with `./configure && make`
 
-### Code Quality Commands
-- `black .` - Format code with Black
-- `black --check .` - Check code formatting without changes
-- `isort .` - Sort imports
-- `isort --check-only .` - Check import sorting
-- `flake8` - Run linting with Flake8
-- `pylint src/` - Run linting with Pylint
-- `mypy src/` - Run type checking with MyPy
+### Web Applications & Crowdfunding
+- **fund-02/**: Full-stack crowdfunding platform
+  - Frontend: HTML5/CSS3/Bootstrap 5/Chart.js static version
+  - Backend: Flask with SQLAlchemy ORM and PostgreSQL support
+  - Admin panel with authentication (password: nomadtown2025!)
+- **php/**: Alternative PHP implementation
 
-### Development Tools
-- `python -m pip install --upgrade pip` - Upgrade pip
-- `python -c "import sys; print(sys.version)"` - Check Python version
-- `python -m site` - Show Python site information
-- `python -m pdb script.py` - Debug with pdb
+### Research & Academic Tools
+- **PDF/**: Academic paper processing pipeline
+  - Automated downloaders for arXiv and Korean academic sources
+  - PDF-to-Markdown conversion with metadata extraction
+  - Scheduled crawling and content analysis
+- **Projects/0801/**: Real-time document scanning and metadata extraction
+- **Projects/0801 FOLDER/**: Flutter mobile app collection and project management tools
 
-## Technology Stack
+## Development Commands by Project Type
 
-### Core Technologies
-- **Python** - Primary programming language (3.8+)
-- **pip** - Package management
-- **venv** - Virtual environment management
+### Python Projects
 
-### Common Frameworks
-- **Django** - High-level web framework
-- **Flask** - Micro web framework
-- **FastAPI** - Modern API framework with automatic documentation
-- **SQLAlchemy** - SQL toolkit and ORM
-- **Pydantic** - Data validation using Python type hints
-
-### Data Science & ML
-- **NumPy** - Numerical computing
-- **Pandas** - Data manipulation and analysis
-- **Matplotlib/Seaborn** - Data visualization
-- **Scikit-learn** - Machine learning library
-- **TensorFlow/PyTorch** - Deep learning frameworks
-
-### Testing Frameworks
-- **pytest** - Testing framework
-- **unittest** - Built-in testing framework
-- **pytest-cov** - Coverage plugin for pytest
-- **factory-boy** - Test fixtures
-- **responses** - Mock HTTP requests
-
-### Code Quality Tools
-- **Black** - Code formatter
-- **isort** - Import sorter
-- **flake8** - Style guide enforcement
-- **pylint** - Code analysis
-- **mypy** - Static type checker
-- **pre-commit** - Git hooks framework
-
-## Project Structure Guidelines
-
-### File Organization
-```
-src/
-├── package_name/
-│   ├── __init__.py
-│   ├── main.py          # Application entry point
-│   ├── models/          # Data models
-│   ├── views/           # Web views (Django/Flask)
-│   ├── api/             # API endpoints
-│   ├── services/        # Business logic
-│   ├── utils/           # Utility functions
-│   └── config/          # Configuration files
-tests/
-├── __init__.py
-├── conftest.py          # pytest configuration
-├── test_models.py
-├── test_views.py
-└── test_utils.py
-requirements/
-├── base.txt            # Base requirements
-├── dev.txt             # Development requirements
-└── prod.txt            # Production requirements
-```
-
-### Naming Conventions
-- **Files/Modules**: Use snake_case (`user_profile.py`)
-- **Classes**: Use PascalCase (`UserProfile`)
-- **Functions/Variables**: Use snake_case (`get_user_data`)
-- **Constants**: Use UPPER_SNAKE_CASE (`API_BASE_URL`)
-- **Private methods**: Prefix with underscore (`_private_method`)
-
-## Python Guidelines
-
-### Type Hints
-- Use type hints for function parameters and return values
-- Import types from `typing` module when needed
-- Use `Optional` for nullable values
-- Use `Union` for multiple possible types
-- Document complex types with comments
-
-### Code Style
-- Follow PEP 8 style guide
-- Use meaningful variable and function names
-- Keep functions focused and single-purpose
-- Use docstrings for modules, classes, and functions
-- Limit line length to 88 characters (Black default)
-
-### Best Practices
-- Use list comprehensions for simple transformations
-- Prefer `pathlib` over `os.path` for file operations
-- Use context managers (`with` statements) for resource management
-- Handle exceptions appropriately with try/except blocks
-- Use `logging` module instead of print statements
-
-## Testing Standards
-
-### Test Structure
-- Organize tests to mirror source code structure
-- Use descriptive test names that explain the behavior
-- Follow AAA pattern (Arrange, Act, Assert)
-- Use fixtures for common test data
-- Group related tests in classes
-
-### Coverage Goals
-- Aim for 90%+ test coverage
-- Write unit tests for business logic
-- Use integration tests for external dependencies
-- Mock external services in tests
-- Test error conditions and edge cases
-
-### pytest Configuration
-```python
-# pytest.ini or pyproject.toml
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-python_files = ["test_*.py", "*_test.py"]
-python_classes = ["Test*"]
-python_functions = ["test_*"]
-addopts = "--cov=src --cov-report=term-missing"
-```
-
-## Virtual Environment Setup
-
-### Creation and Activation
+#### Poetry-based Projects (agentic-radar)
 ```bash
-# Create virtual environment
+# Setup
+poetry install
+
+# Development
+poetry run pytest                    # Run tests
+poetry run ruff check               # Linting
+poetry run mypy .                   # Type checking
+
+# CLI usage
+poetry run agentic-radar            # Main CLI
+```
+
+#### UV-based Modern Projects (cai)
+```bash
+# Setup
+uv sync                             # Install dependencies
+
+# Development
+uv run pytest                       # Run tests  
+uv run ruff check                   # Linting
+uv run mypy .                       # Type checking
+
+# CLI usage
+uv run cai                          # Main CLI command
+uv run cai-cli                      # Alternative CLI
+```
+
+#### Hatchling-based Projects (SuperClaude_Framework)
+```bash
+# Setup
+pip install -e .                    # Editable install
+
+# Development
+python -m pytest                    # Run tests
+python -m SuperClaude               # Run CLI
+
+# Build
+python -m build                     # Build wheel/sdist
+```
+
+#### Standard Python Projects (llm-guard, PDF tools)
+```bash
+# Setup
 python -m venv venv
-
-# Activate (Linux/Mac)
-source venv/bin/activate
-
-# Activate (Windows)
-venv\Scripts\activate
-
-# Install dependencies
+source venv/bin/activate  # Linux/Mac
+# or venv\Scripts\activate  # Windows
 pip install -r requirements.txt
-pip install -r requirements-dev.txt
+
+# Development
+pytest                              # Run tests
+python -m flask run                 # Flask apps
+black .                             # Code formatting
+flake8                              # Linting
 ```
 
-### Requirements Management
-- Use `requirements.txt` for production dependencies
-- Use `requirements-dev.txt` for development dependencies
-- Consider using `pip-tools` for dependency resolution
-- Pin versions for reproducible builds
+### Node.js/TypeScript Projects
 
-## Django-Specific Guidelines
+#### Promptfoo (LLM Evaluation)
+```bash
+# Setup
+npm install                         # Install dependencies
 
-### Project Structure
-```
-project_name/
-├── manage.py
-├── project_name/
-│   ├── __init__.py
-│   ├── settings/
-│   ├── urls.py
-│   └── wsgi.py
-├── apps/
-│   ├── users/
-│   ├── products/
-│   └── orders/
-└── requirements/
+# Development
+npm run build                       # Build project
+npm test                            # Run tests
+npm run lint                        # ESLint
+
+# Usage
+npx promptfoo eval                  # Run evaluations
+npx promptfoo redteam               # Security testing
 ```
 
-### Common Commands
-- `python manage.py runserver` - Start development server
-- `python manage.py migrate` - Apply database migrations
-- `python manage.py makemigrations` - Create new migrations
-- `python manage.py createsuperuser` - Create admin user
-- `python manage.py collectstatic` - Collect static files
-- `python manage.py test` - Run Django tests
+### C/C++ Projects (medusa)
+```bash
+# Build
+./configure                         # Configure build
+make                               # Compile
+make install                       # Install (as root)
 
-## FastAPI-Specific Guidelines
+# Development
+make clean                         # Clean build files
+make distclean                     # Full cleanup
 
-### Project Structure
-```
-src/
-├── main.py              # FastAPI application
-├── api/
-│   ├── __init__.py
-│   ├── dependencies.py  # Dependency injection
-│   └── v1/
-│       ├── __init__.py
-│       └── endpoints/
-├── core/
-│   ├── __init__.py
-│   ├── config.py       # Settings
-│   └── security.py    # Authentication
-├── models/
-├── schemas/            # Pydantic models
-└── services/
+# Usage (security research only)
+./medusa -h                        # Help
+./medusa -H hosts.txt -U users.txt -P passwords.txt -M ssh
+
+# Available modules
+ls *.so                            # List compiled modules
+./medusa -d                        # List available modules
 ```
 
-### Common Commands
-- `uvicorn main:app --reload` - Start development server
-- `uvicorn main:app --host 0.0.0.0 --port 8000` - Start production server
+### Web Applications
 
-## Security Guidelines
+#### Flask-based Crowdfunding (fund-02)
+```bash
+# Development setup
+python -m venv funding_env
+source funding_env/bin/activate    # Linux/Mac
+pip install -r requirements.txt
 
-### Dependencies
-- Regularly update dependencies with `pip list --outdated`
-- Use `safety` package to check for known vulnerabilities
-- Pin dependency versions in requirements files
-- Use virtual environments to isolate dependencies
+# Development server
+python app.py                      # SQLite backend
+python app_postgresql.py           # PostgreSQL backend
 
-### Code Security
-- Validate input data with Pydantic or similar
-- Use environment variables for sensitive configuration
-- Implement proper authentication and authorization
-- Sanitize data before database operations
-- Use HTTPS for production deployments
+# Production
+gunicorn app:app --bind 0.0.0.0:5000
 
-## Development Workflow
+# Database migration
+python migrate_data.py             # Migrate to PostgreSQL
 
-### Before Starting
-1. Check Python version compatibility
-2. Create and activate virtual environment
-3. Install dependencies from requirements files
-4. Run type checking with `mypy`
+# Frontend (static version)
+python -m http.server 8000
+# Access: admin.html (password: nomadtown2025!)
+```
 
-### During Development
-1. Use type hints for better code documentation
-2. Run tests frequently to catch issues early
-3. Use meaningful commit messages
-4. Format code with Black before committing
+#### PHP Alternative
+```bash
+# Setup
+php -S localhost:8000              # Development server
+```
 
-### Before Committing
-1. Run full test suite: `pytest`
-2. Check code formatting: `black --check .`
-3. Sort imports: `isort --check-only .`
-4. Run linting: `flake8`
-5. Run type checking: `mypy src/`
+### Academic/Research Tools
+
+#### PDF Processing Pipeline
+```bash
+# Enhanced paper scheduler
+python enhanced_paper_scheduler.py  # Main scheduler
+python korean_enhanced_scheduler.py # Korean papers only
+
+# Manual processing
+python academic_document_scanner.py # Scan documents
+python txt_to_md_converter.py      # Convert formats
+
+# Setup scheduled processing
+bash setup_enhanced_cron.sh        # Setup automation
+```
+
+#### Document Analysis (Projects/0801)
+```bash
+# Real-time scanning
+python realtime_document_scanner.py
+python continuous_scanner.py
+
+# Metadata extraction
+python document_metadata_extractor.py
+python document_type_detector.py
+```
+
+## High-Level Architecture Patterns
+
+### Multi-Language Ecosystem
+The repository demonstrates several architectural patterns:
+
+1. **Python-Centric AI Tools**: Modern Python projects using Poetry/UV for dependency management
+2. **Legacy C/Autotools**: Traditional Unix-style tools (medusa) with autotools build system
+3. **Web Stack Diversity**: From pure HTML/JS to Flask applications
+4. **Research Pipeline**: Document processing and academic paper management systems
+
+### Key Architectural Components
+
+#### AI Framework Integration (SuperClaude)
+- **Framework Files**: Documentation-driven behavior in `~/.claude/`
+- **MCP Integration**: External service connections (Context7, Sequential, Magic, Playwright)
+- **Command System**: 16 specialized slash commands for development tasks
+- **Persona System**: Auto-activated AI specialists for different domains
+- **Token Optimization**: Intelligent compression and caching strategies
+
+#### Modern Python Development Patterns
+- **UV Package Manager**: Fast dependency resolution and virtual environments
+- **Poetry**: Dependency management with lock files and semantic versioning
+- **Hatchling**: Modern build backend for packaging
+- **Type Safety**: mypy, ruff for modern Python tooling
+- **Multi-Agent Architecture**: CAI framework with agent coordination
+
+#### Security Architecture (medusa, cai)
+- **Modular Design**: Plugin-based service modules (.so files)
+- **Multi-Protocol Support**: 20+ protocols (SSH, HTTP, FTP, SMB, RDP, etc.)
+- **Thread-Safe Operations**: Parallel testing with configurable concurrency
+- **Configuration-Driven**: External config files and combo files
+- **AI-Enhanced Security**: CAI integration for intelligent threat analysis
+
+#### Financial Systems Architecture
+- **Expert Advisor Pattern**: MQL4/5 automated trading systems
+- **Quantitative Libraries**: 40+ libraries spanning backtesting to live trading
+- **Multi-Exchange Support**: CCXT-based unified API for 100+ exchanges
+- **Research Integration**: Academic papers and institutional reports
+- **Risk Management**: Position sizing, drawdown control, portfolio optimization
+
+### Data Flow Patterns
+
+1. **Research Pipeline**: PDF → Processing → Markdown → Analysis → Knowledge Base
+2. **Trading Pipeline**: Market Data → Indicators → Signals → Risk Check → Orders → Portfolio
+3. **Security Pipeline**: Targets → Modules → Tests → Results → Reports → Mitigation
+4. **Web Pipeline**: Frontend → API → Database → Admin Panel → Analytics
+5. **AI Development**: Data → Training → Model → Evaluation → Deployment → Monitoring
+6. **Academic Processing**: Scheduled Crawl → Download → Convert → Extract Metadata → Store
+
+## Development Workflow Guidelines
+
+### Before Starting Work
+1. Identify project type and technology stack
+2. Check for project-specific README files
+3. Verify required dependencies and tools
+4. Review any security considerations (especially for medusa, trading tools)
+
+### Working with Multiple Projects
+- Each project has its own development environment
+- Use virtual environments for Python projects
+- Check build requirements for C/C++ projects
+- Be aware of project-specific licensing and usage restrictions
+
+### Security Considerations
+- **medusa**: Only use for authorized security testing
+- **Trading tools**: Educational/research purposes only
+- **Academic tools**: Respect copyright and usage terms
+- **Web applications**: Use provided test credentials, change for production
+
+### Testing Approach
+- **Python projects**: Use pytest with project-specific configurations
+  - Poetry: `poetry run pytest`
+  - UV: `uv run pytest`  
+  - Virtual env: `pytest`
+- **C projects**: Check for test suites in source directories, use `make check`
+- **Node.js projects**: `npm test` or `yarn test`
+- **Web applications**: Test both frontend and backend components
+- **Security tools**: Use isolated test environments only
+- **Financial tools**: Backtest with historical data before any live testing
+
+## Important Notes
+
+### Legal and Ethical Usage
+- **Security tools**: Only use on systems you own or have explicit permission to test
+- **Trading systems**: Past performance does not guarantee future results
+- **Academic content**: Respect copyright and fair use guidelines
+- **Web applications**: Change default passwords and secure for production use
+
+### Performance Considerations
+- **AI frameworks**: May require significant computational resources
+- **Trading systems**: Real-time processing requirements
+- **Document processing**: Handle large file processing efficiently
+- **Web applications**: Consider scalability for production deployment
+
+## Project-Specific Quick Reference
+
+### Common Build Commands by Technology
+- **Poetry projects**: `poetry install && poetry run pytest`
+- **UV projects**: `uv sync && uv run pytest`
+- **C/Autotools**: `./configure && make && make check`
+- **Node.js**: `npm install && npm test`
+- **Flask apps**: `python -m venv venv && source venv/bin/activate && pip install -r requirements.txt && python app.py`
+
+### Key Configuration Files to Check
+- **Python**: `pyproject.toml`, `requirements*.txt`, `setup.py`
+- **Node.js**: `package.json`, `tsconfig.json`
+- **C/C++**: `configure.ac`, `Makefile.am`, `CMakeLists.txt`
+- **Web**: Look for `app.py`, `index.html`, database config files
+
+### Directory Structure Patterns
+- **Multi-language projects** often have language-specific subdirectories
+- **Research tools** typically separate raw data, processed data, and scripts
+- **Financial projects** separate indicators, strategies, and backtesting
+- **Security tools** have modular architecture with separate protocol handlers
+
+This repository represents a sophisticated development environment with projects spanning multiple domains. Each project should be approached with understanding of its specific purpose, technology stack, and usage constraints.
