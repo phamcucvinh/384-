@@ -4,316 +4,361 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-This is a complex multi-project workspace containing diverse software projects across different domains including AI frameworks, trading systems, security tools, web applications, and research projects. The repository serves as a development workspace with active projects in various stages of development.
+This is a multi-project developer workspace containing diverse systems spanning financial trading, web development, AI-powered automation, and Korean language content management. The workspace has grown organically and contains several major project categories:
 
-## Key Project Categories
+- **Trading Systems**: MQL4/MQL5 Expert Advisors for MetaTrader platforms (EA31337, collections)
+- **AI/ML Projects**: LLM integration tools, automation frameworks, and business plan generators  
+- **Web Development**: React/TypeScript projects, utilities, and content management tools
+- **Korean Content Management**: Documentation systems, publishing tools, and localization frameworks
+- **Security Research**: Downloaded cybersecurity educational resources and analysis tools
 
-### AI/ML Frameworks & Tools
-- **agentic-radar**: Poetry-based Python library for generating agentic system reports
-- **cai**: Modern UV-based cybersecurity AI framework with multi-agent capabilities
-- **SuperClaude_Framework**: Claude Code extension framework with command system and MCP integration
-- **llm-guard**: Security framework for LLM applications
-- **promptfoo**: LLM evaluation and red teaming toolkit (TypeScript/Node.js)
+## Primary Projects and Build Commands
 
-### Financial Trading Systems & Libraries
-- **MQ4/**: MetaTrader 4/5 trading ecosystem
-  - EA31337, nomadtown-ea-system, and trading indicators
-  - **IMPORTANT**: Educational/research purposes only
-- **aaaa/**: 40+ quantitative finance libraries collection
-  - Major libraries: freqtrade (40k stars), ccxt (32k stars), openbb (28k stars)
-  - pandas, numpy, matplotlib (scientific computing stack)
-  - Research papers from Goldman Sachs, JPMorgan, academic institutions
-- **ea31337-src/**: Expert Advisor source code collection
-
-### Security & Network Tools
-- **medusa/**: C/Autotools network login brute-forcer
-  - **WARNING**: Security research only - authorized testing required
-  - Modular design with 20+ protocol modules (SSH, HTTP, SMB, etc.)
-  - Built with `./configure && make`
-
-### Web Applications & Crowdfunding
-- **fund-02/**: Full-stack crowdfunding platform
-  - Frontend: HTML5/CSS3/Bootstrap 5/Chart.js static version
-  - Backend: Flask with SQLAlchemy ORM and PostgreSQL support
-  - Admin panel with authentication (password: nomadtown2025!)
-- **php/**: Alternative PHP implementation
-
-### Research & Academic Tools
-- **PDF/**: Academic paper processing pipeline
-  - Automated downloaders for arXiv and Korean academic sources
-  - PDF-to-Markdown conversion with metadata extraction
-  - Scheduled crawling and content analysis
-- **Projects/0801/**: Real-time document scanning and metadata extraction
-- **Projects/0801 FOLDER/**: Flutter mobile app collection and project management tools
-
-## Development Commands by Project Type
-
-### Python Projects
-
-#### Poetry-based Projects (agentic-radar)
+### EA31337 Trading System (MQL4/MQL5)
+**Location**: `EA31337/`
 ```bash
-# Setup
-poetry install
+# Requirements check
+make requirements
 
-# Development
-poetry run pytest                    # Run tests
-poetry run ruff check               # Linting
-poetry run mypy .                   # Type checking
+# Build variants (Lite/Advanced/Rider modes)
+make EA                    # Build all EA variants
+make Lite                 # Build Lite version only
+make Advanced             # Build Advanced version only
+make Rider                # Build Rider version only
 
-# CLI usage
-poetry run agentic-radar            # Main CLI
+# Release builds
+make Release              # Build all release versions
+make Lite-Release         # Build Lite release version
+make Advanced-Release     # Build Advanced release version
+make Rider-Release        # Build Rider release version
+
+# Testing and optimization builds
+make Backtest            # Build backtest versions
+make Optimize            # Build optimization versions
+
+# Compilation targets
+make compile-mql4        # Compile MQL4 version
+make compile-mql5        # Compile MQL5 version
+
+# Cleanup
+make clean-all          # Clean all build artifacts
+make clean-src          # Clean source artifacts
+
+# Installation (MetaTrader 4)
+make mt4-install        # Install to MetaTrader 4 Experts folder
 ```
 
-#### UV-based Modern Projects (cai)
-```bash
-# Setup
-uv sync                             # Install dependencies
 
-# Development
-uv run pytest                       # Run tests  
-uv run ruff check                   # Linting
-uv run mypy .                       # Type checking
-
-# CLI usage
-uv run cai                          # Main CLI command
-uv run cai-cli                      # Alternative CLI
-```
-
-#### Hatchling-based Projects (SuperClaude_Framework)
-```bash
-# Setup
-pip install -e .                    # Editable install
-
-# Development
-python -m pytest                    # Run tests
-python -m SuperClaude               # Run CLI
-
-# Build
-python -m build                     # Build wheel/sdist
-```
-
-#### Standard Python Projects (llm-guard, PDF tools)
-```bash
-# Setup
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-# or venv\Scripts\activate  # Windows
-pip install -r requirements.txt
-
-# Development
-pytest                              # Run tests
-python -m flask run                 # Flask apps
-black .                             # Code formatting
-flake8                              # Linting
-```
-
-### Node.js/TypeScript Projects
-
-#### Promptfoo (LLM Evaluation)
-```bash
-# Setup
-npm install                         # Install dependencies
-
-# Development
-npm run build                       # Build project
-npm test                            # Run tests
-npm run lint                        # ESLint
-
-# Usage
-npx promptfoo eval                  # Run evaluations
-npx promptfoo redteam               # Security testing
-```
-
-### C/C++ Projects (medusa)
-```bash
-# Build
-./configure                         # Configure build
-make                               # Compile
-make install                       # Install (as root)
-
-# Development
-make clean                         # Clean build files
-make distclean                     # Full cleanup
-
-# Usage (security research only)
-./medusa -h                        # Help
-./medusa -H hosts.txt -U users.txt -P passwords.txt -M ssh
-
-# Available modules
-ls *.so                            # List compiled modules
-./medusa -d                        # List available modules
-```
-
-### Web Applications
-
-#### Flask-based Crowdfunding (fund-02)
+### Awesome Claude Code (Python)
+**Location**: `awesome-claude-code/`
 ```bash
 # Development setup
-python -m venv funding_env
-source funding_env/bin/activate    # Linux/Mac
+pip install -e ".[dev]"
+
+# Code quality
+ruff check               # Lint code
+ruff format             # Format code
+pre-commit run --all-files  # Run all pre-commit hooks
+
+# Testing
+pytest                  # Run tests
+make test               # Run validation tests
+
+# Resource management (using Makefile)
+make add_resource       # Interactive tool to add new resource
+make submit             # One-command submission workflow
+make validate           # Validate all links in resource CSV
+make generate           # Generate README from CSV data
+make sort               # Sort resources by category
+make update             # Process and validate resources
+make clean              # Remove generated files
+
+# Manual scripts (alternative to Makefile)
+python scripts/generate_readme.py      # Generate README from resources
+python scripts/validate_links.py       # Validate all resource links
+python scripts/add_resource.py         # Add new resource
+```
+
+### SuperClaude Framework (Python)
+**Location**: `SuperClaude_Framework/`
+```bash
+# Installation
+pip install -e .
+
+# Run SuperClaude CLI
+SuperClaude             # CLI entry point
+
+# Development mode
+python -m SuperClaude   # Run as module
+```
+
+### Web Projects (Node.js/TypeScript)
+**Location**: `wjswkcp-ebook-creator/`, `bazi-calculator-by-alvamind/`
+```bash
+# Install dependencies
+npm install
+# or for bazi calculator specifically
+bun install             
+
+# Development
+npm run dev            # Start development server
+npm run build          # Build for production
+npm run lint           # Lint code (if configured)
+npm test               # Run tests (if configured)
+```
+
+### TikTok Automation Tools (Python)
+**Location**: `TikTokAutoUploader/`, `tiktok-autouploader/`
+```bash
+# Install requirements
 pip install -r requirements.txt
 
+# Run automation (check specific README in each directory)
+python run.py           # Main automation script
+python TikTok_Uploader.py  # Alternative uploader
+```
+
+### Korean Contact Management Tools (Python)
+**Location**: `저작권/` (contact management scripts)
+```bash
+# Install requirements
+pip install -r requirements.txt
+
+# Contact management workflows
+python excel_to_vcf_converter.py    # Convert Excel to VCF format
+python phone_data_manager.py        # Manage phone contact data
+python kakao_contact_manager_gui.py # GUI for KakaoTalk contacts
+```
+
+### Document Processing and Conversion (Python)
+**Location**: Various scripts in `저작권/`
+```bash
+# PDF processing utilities
+python pdf_to_txt_converter.py      # Basic PDF to text conversion
+python pdf_to_txt_advanced.py       # Advanced PDF processing with OCR
+python pdf_to_txt_ocr.py            # OCR-specific processing
+
+# Image processing
+python resize_image.py               # Image resizing utilities
+```
+
+## Architecture and Code Organization
+
+### Trading Systems Architecture
+- **EA31337**: Advanced modular expert advisor framework
+  - `src/EA31337.mq4/.mq5`: Main EA source files
+  - `src/include/`: Shared header files and includes
+  - `sets/`: Optimized parameter sets for different strategies
+  - Mode-based compilation system supporting Lite/Advanced/Rider variants
+  - Cross-platform compilation using Wine + MetaEditor on Linux/macOS
+
+
+### Web Development Structure
+- **Modern Stack**: React/TypeScript with modern build tools (Webpack, Vite)
+- **Multi-platform**: Support for npm, yarn, and bun package managers
+- **Component Architecture**: Reusable component libraries and design systems
+
+### Korean Content Management
+- **Multi-format Support**: HWP, Markdown, and various Korean document formats
+- **Encoding**: UTF-8 throughout with proper Korean character support
+- **Publishing Pipeline**: Content creation → Review → Publication workflows
+
+### Security Research Collection
+- **Educational Resources**: Comprehensive cybersecurity learning materials
+- **Analysis Tools**: Security analysis and penetration testing resources
+- **Research Organization**: Categorized by security domains and skill levels
+
+## Development Conventions
+
+### MQL4/MQL5 Development
+- Follow EA31337 framework patterns and conventions
+- Use MetaTrader standard naming conventions and file organization
+- Implement comprehensive error handling and logging systems
+- Utilize Strategy Tester for thorough backtesting before deployment
+- Store optimized parameters in SET files with version control
+
+### Python Development
+- Adhere to PEP 8 style guidelines with Black/Ruff formatting
+- Use type hints for better code documentation and IDE support
+- Implement comprehensive unit testing with pytest
+- Manage dependencies with virtual environments and requirements.txt
+- Follow semantic versioning for releases
+
+### Web Development
+- Use modern JavaScript/TypeScript best practices and ESLint configurations
+- Implement responsive design patterns with mobile-first approach
+- Include comprehensive error handling and user feedback systems
+- Optimize for performance, accessibility, and SEO
+- Use consistent naming conventions across components and modules
+
+### Korean Language Development
+- Ensure UTF-8 encoding across all text processing
+- Implement proper Korean text handling and normalization
+- Support Korean government standards and documentation formats
+- Include Korean language validation and input methods
+- Use HWP format support for official Korean documents
+
+
+## Key File Locations
+
+### Trading Systems
+- EA31337 main source: `EA31337/src/EA31337.mq4` and `EA31337/src/EA31337.mq5`
+- MQL4 collections: `github-mql4-collection/` and `mql4_experts/`
+- Trading templates and utilities: `mql4-template/`, `ma-cross-ea/`
+
+
+### Web Development
+- E-book creator: `wjswkcp-ebook-creator/`
+- Bazi calculator: `bazi-calculator-by-alvamind/`
+- Static web examples: `popup.html`
+
+### Documentation and Content
+- Project documentation: `Documents/`, `md/`
+- Korean language content: `hwp/`, `저작권/`
+- Technical manuals: `manual/`
+- SuperClaude framework docs: `SuperClaude_Framework/Docs/`
+
+### Automation Tools
+- TikTok automation: `TikTokAutoUploader/`, `tiktok-autouploader/`
+- Contact management: Various Python scripts in `저작권/`
+- Data conversion utilities: Scattered across multiple directories
+
+## Environment Setup and Dependencies
+
+### Core System Requirements
+- **Python**: 3.8+ (3.11+ recommended for modern projects)
+- **Node.js**: 16+ with npm/yarn/bun support
+- **Wine64**: Required for MetaTrader compilation on Linux/macOS
+- **Korean Language Support**: Fonts and input methods for Korean content
+
+### MetaTrader Development Environment
+```bash
+# Wine configuration for cross-platform development
+export WINEDEBUG=fixme-all
+
+# MetaTrader installation path
+export MT_PATH="$HOME/.wine/drive_c/Program Files/MetaTrader 4"
+```
+
+### Python Virtual Environment Setup
+```bash
+# Create isolated development environment
+python3 -m venv venv
+source venv/bin/activate  # Linux/macOS
+venv\Scripts\activate     # Windows
+
+# Install common dependencies
+pip install -r requirements.txt  # If available
+# Or install manually:
+pip install tqdm python-docx requests beautifulsoup4 selenium pandas
+```
+
+### Node.js Project Setup
+```bash
+# Install dependencies
+npm install  # or yarn install / bun install
+
 # Development server
-python app.py                      # SQLite backend
-python app_postgresql.py           # PostgreSQL backend
+npm run dev  # Start development with hot reload
 
-# Production
-gunicorn app:app --bind 0.0.0.0:5000
-
-# Database migration
-python migrate_data.py             # Migrate to PostgreSQL
-
-# Frontend (static version)
-python -m http.server 8000
-# Access: admin.html (password: nomadtown2025!)
+# Production build
+npm run build && npm run preview
 ```
 
-#### PHP Alternative
+## Data Management and Storage
+
+### Directory Structure
+```
+/
+├── EA31337/                           # Trading system main project
+├── awesome-claude-code/               # Claude Code resource collection
+├── bazi-calculator-by-alvamind/       # TypeScript Bazi calculator
+├── github-mql4-collection/            # MQL4 trading expert advisors collection
+├── 저작권/                            # Korean intellectual property content
+│   ├── contacts/                      # Contact management data
+│   └── AI-Security-Projects-Downloaded/  # Security research materials
+├── Documents/                         # General project documentation
+├── hwp/                               # Korean HWP document files
+├── manual/                            # Technical manuals and guides
+└── md/                                # Various documentation and guides
+```
+
+### Data Processing Pipelines
+- **Contact Management**: Excel → Python Processing → VCF/CSV Export
+- **Trading Data**: Historical Data → Backtesting → Optimization → Strategy Files
+- **Document Processing**: PDF → Text conversion with OCR support
+
+## Testing and Quality Assurance
+
+### Trading System Testing
 ```bash
-# Setup
-php -S localhost:8000              # Development server
+# Run EA31337 backtests
+make Backtest           # Build backtest versions
+# Use MetaTrader Strategy Tester for comprehensive testing
+
+# Parameter optimization
+make Optimize           # Build optimization versions
 ```
 
-### Academic/Research Tools
-
-#### PDF Processing Pipeline
+### Python Testing
 ```bash
-# Enhanced paper scheduler
-python enhanced_paper_scheduler.py  # Main scheduler
-python korean_enhanced_scheduler.py # Korean papers only
+# Run test suites
+pytest                  # awesome-claude-code
+python -m pytest       # General pytest execution
 
-# Manual processing
-python academic_document_scanner.py # Scan documents
-python txt_to_md_converter.py      # Convert formats
+# Code quality
+ruff check              # Linting
+ruff format             # Code formatting
+pre-commit run --all-files  # Pre-commit hooks
 
-# Setup scheduled processing
-bash setup_enhanced_cron.sh        # Setup automation
 ```
 
-#### Document Analysis (Projects/0801)
+### Manual Testing Procedures
+- **Web Applications**: Cross-browser testing and responsive design validation
+- **Korean Content**: Character encoding and font rendering verification
+- **Document Processing**: PDF to text conversion accuracy verification
+- **Contact Management**: Excel to VCF conversion validation
+
+### Logging and Monitoring
+**Log Files**:
+- Application-specific log files generated by individual tools
+- TikTok automation logs
+- Document processing operation logs
+
+**Real-time Monitoring**:
 ```bash
-# Real-time scanning
-python realtime_document_scanner.py
-python continuous_scanner.py
+# Monitor active processes
+tail -f application.log
 
-# Metadata extraction
-python document_metadata_extractor.py
-python document_type_detector.py
+# Check system status for resource-intensive operations
 ```
 
-## High-Level Architecture Patterns
+## Important Operational Notes
 
-### Multi-Language Ecosystem
-The repository demonstrates several architectural patterns:
+### Security and Safety
+1. **Trading Systems**: All trading systems are for educational and backtesting purposes. Use proper risk management and never risk capital you cannot afford to lose.
 
-1. **Python-Centric AI Tools**: Modern Python projects using Poetry/UV for dependency management
-2. **Legacy C/Autotools**: Traditional Unix-style tools (medusa) with autotools build system
-3. **Web Stack Diversity**: From pure HTML/JS to Flask applications
-4. **Research Pipeline**: Document processing and academic paper management systems
+2. **Web Scraping**: Respect robots.txt and implement rate limiting to avoid overloading target servers.
 
-### Key Architectural Components
+3. **API Usage**: Monitor API rate limits and implement proper error handling for external services.
 
-#### AI Framework Integration (SuperClaude)
-- **Framework Files**: Documentation-driven behavior in `~/.claude/`
-- **MCP Integration**: External service connections (Context7, Sequential, Magic, Playwright)
-- **Command System**: 16 specialized slash commands for development tasks
-- **Persona System**: Auto-activated AI specialists for different domains
-- **Token Optimization**: Intelligent compression and caching strategies
+4. **Document Processing**: Ensure proper handling of Korean characters in PDF and document conversion processes.
 
-#### Modern Python Development Patterns
-- **UV Package Manager**: Fast dependency resolution and virtual environments
-- **Poetry**: Dependency management with lock files and semantic versioning
-- **Hatchling**: Modern build backend for packaging
-- **Type Safety**: mypy, ruff for modern Python tooling
-- **Multi-Agent Architecture**: CAI framework with agent coordination
+### Cross-Platform Considerations
+- **Wine Dependencies**: MetaTrader compilation requires Wine64 on non-Windows systems
+- **Korean Fonts**: Ensure proper Korean font installation for document rendering
+- **File Encoding**: Maintain UTF-8 encoding for all Korean text processing
+- **Path Separators**: Use platform-appropriate path handling in scripts
 
-#### Security Architecture (medusa, cai)
-- **Modular Design**: Plugin-based service modules (.so files)
-- **Multi-Protocol Support**: 20+ protocols (SSH, HTTP, FTP, SMB, RDP, etc.)
-- **Thread-Safe Operations**: Parallel testing with configurable concurrency
-- **Configuration-Driven**: External config files and combo files
-- **AI-Enhanced Security**: CAI integration for intelligent threat analysis
+### Performance Optimization
+- **Concurrent Processing**: Leverage multiprocessing for batch operations
+- **Memory Management**: Monitor memory usage during large-scale operations
+- **Caching**: Implement caching for frequently accessed data
 
-#### Financial Systems Architecture
-- **Expert Advisor Pattern**: MQL4/5 automated trading systems
-- **Quantitative Libraries**: 40+ libraries spanning backtesting to live trading
-- **Multi-Exchange Support**: CCXT-based unified API for 100+ exchanges
-- **Research Integration**: Academic papers and institutional reports
-- **Risk Management**: Position sizing, drawdown control, portfolio optimization
+### Version Control Best Practices
+- **Git LFS**: Use for large binary files (videos, compiled executables)
+- **Sensitive Data**: Never commit API keys, credentials, or personal information
+- **Korean Content**: Ensure proper Git configuration for Korean file names
+- **Binary Files**: Be selective about which compiled files to include in version control
 
-### Data Flow Patterns
-
-1. **Research Pipeline**: PDF → Processing → Markdown → Analysis → Knowledge Base
-2. **Trading Pipeline**: Market Data → Indicators → Signals → Risk Check → Orders → Portfolio
-3. **Security Pipeline**: Targets → Modules → Tests → Results → Reports → Mitigation
-4. **Web Pipeline**: Frontend → API → Database → Admin Panel → Analytics
-5. **AI Development**: Data → Training → Model → Evaluation → Deployment → Monitoring
-6. **Academic Processing**: Scheduled Crawl → Download → Convert → Extract Metadata → Store
-
-## Development Workflow Guidelines
-
-### Before Starting Work
-1. Identify project type and technology stack
-2. Check for project-specific README files
-3. Verify required dependencies and tools
-4. Review any security considerations (especially for medusa, trading tools)
-
-### Working with Multiple Projects
-- Each project has its own development environment
-- Use virtual environments for Python projects
-- Check build requirements for C/C++ projects
-- Be aware of project-specific licensing and usage restrictions
-
-### Security Considerations
-- **medusa**: Only use for authorized security testing
-- **Trading tools**: Educational/research purposes only
-- **Academic tools**: Respect copyright and usage terms
-- **Web applications**: Use provided test credentials, change for production
-
-### Testing Approach
-- **Python projects**: Use pytest with project-specific configurations
-  - Poetry: `poetry run pytest`
-  - UV: `uv run pytest`  
-  - Virtual env: `pytest`
-- **C projects**: Check for test suites in source directories, use `make check`
-- **Node.js projects**: `npm test` or `yarn test`
-- **Web applications**: Test both frontend and backend components
-- **Security tools**: Use isolated test environments only
-- **Financial tools**: Backtest with historical data before any live testing
-
-## Important Notes
-
-### Legal and Ethical Usage
-- **Security tools**: Only use on systems you own or have explicit permission to test
-- **Trading systems**: Past performance does not guarantee future results
-- **Academic content**: Respect copyright and fair use guidelines
-- **Web applications**: Change default passwords and secure for production use
-
-### Performance Considerations
-- **AI frameworks**: May require significant computational resources
-- **Trading systems**: Real-time processing requirements
-- **Document processing**: Handle large file processing efficiently
-- **Web applications**: Consider scalability for production deployment
-
-## Project-Specific Quick Reference
-
-### Common Build Commands by Technology
-- **Poetry projects**: `poetry install && poetry run pytest`
-- **UV projects**: `uv sync && uv run pytest`
-- **C/Autotools**: `./configure && make && make check`
-- **Node.js**: `npm install && npm test`
-- **Flask apps**: `python -m venv venv && source venv/bin/activate && pip install -r requirements.txt && python app.py`
-
-### Key Configuration Files to Check
-- **Python**: `pyproject.toml`, `requirements*.txt`, `setup.py`
-- **Node.js**: `package.json`, `tsconfig.json`
-- **C/C++**: `configure.ac`, `Makefile.am`, `CMakeLists.txt`
-- **Web**: Look for `app.py`, `index.html`, database config files
-
-### Directory Structure Patterns
-- **Multi-language projects** often have language-specific subdirectories
-- **Research tools** typically separate raw data, processed data, and scripts
-- **Financial projects** separate indicators, strategies, and backtesting
-- **Security tools** have modular architecture with separate protocol handlers
-
-This repository represents a sophisticated development environment with projects spanning multiple domains. Each project should be approached with understanding of its specific purpose, technology stack, and usage constraints.
+This workspace represents a sophisticated multi-domain development environment with particular strengths in financial technology, web development automation, and Korean language processing. The modular architecture allows independent development of different components while sharing common infrastructure and utilities.
