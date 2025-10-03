@@ -15,9 +15,9 @@ This is a multi-project developer workspace containing diverse systems spanning 
 ## Primary Projects and Build Commands
 
 ### EA31337 Trading System (MQL4/MQL5)
-**Location**: `EA31337/`
+**Location**: `저작권/work/01_HIGH_PRIORITY/EA31337/`
 ```bash
-# Requirements check
+# Requirements check (requires git, ex, wine64)
 make requirements
 
 # Build variants (Lite/Advanced/Rider modes)
@@ -46,8 +46,140 @@ make clean-src          # Clean source artifacts
 
 # Installation (MetaTrader 4)
 make mt4-install        # Install to MetaTrader 4 Experts folder
+
+# Testing modes
+make set-testing        # Set testing mode
+make test              # Run tests with wine64
 ```
 
+
+### SpanModelTrader (MQL4)
+**Location**: `SpanModelTrader/`
+```bash
+# 일본식 기술적 분석 EA - 일목균형표 + 슈퍼볼린저 조합
+
+# 설치 및 실행
+cp -r SpanModelTrader/* "$MT_PATH/MQL4/"
+# MetaEditor에서 컴파일 후 차트 적용 (권장: H1, USDJPY/EURJPY)
+
+# 주요 기능: 3중 신호 필터, MTF 분석, 자동 리스크 관리, 일본어 로깅
+```
+
+### Trailing-Stop-on-Profit (MT4/MT5/cTrader)
+**Location**: `Trailing-Stop-on-Profit/`
+```bash
+# 수익 달성 후 자동 손절 이동 EA (EarnForex.com)
+
+# 설치
+# MT4: Copy to MQL4/Experts/
+# MT5: Copy to MQL5/Experts/
+
+# 기능
+# - 설정한 수익 포인트 달성 시 자동으로 손절가 추적
+# - 차트 버튼으로 간편한 활성화/비활성화
+# - 필터링 옵션으로 특정 거래만 선택 가능
+# - 완전 자동화된 손절 관리
+
+# 상세 가이드: https://www.earnforex.com/metatrader-expert-advisors/Trailing-Stop-on-Profit/
+```
+
+### Show-Time-To-Close-Indicator (MT4/MT5)
+**Location**: `Show-Time-To-Close-Indicator-Metatrader/`
+```bash
+# 캔들 종료까지 남은 시간 실시간 표시 인디케이터 (TFLab)
+
+# 설치
+# MT4: ShowTimeToClose MT4 - By TFLab.mq4 → MQL4/Indicators/
+# MT5: Show Time To Close MT5 - By TFLab.mq5 → MQL5/Indicators/
+
+# 주요 기능
+# - 실시간 카운트다운 (HH:MM:SS 형식)
+# - 모든 타임프레임 지원 (M1~MN1)
+# - 커스터마이징 가능 (위치, 색상)
+# - 주간/월간 차트는 "XD & HH:MM:SS" 형식
+
+# 활용
+# - 스캘핑: 정확한 진입/청산 타이밍
+# - 데이 트레이딩: 캔들 마감 전 포지션 관리
+# - 스윙: 중요한 일봉/주봉 마감 모니터링
+```
+
+### Three-Line-Break (MT4/MT5)
+**Location**: `Three-Line-Break/`
+```bash
+# 3라인 브레이크 차트 인디케이터 (marbotek)
+
+# 설치
+# Releases 페이지에서 .ex4/.ex5 다운로드 → Indicators 폴더 복사
+
+# 특징
+# - 가격 움직임의 독특한 시각화
+# - 커스터마이징 가능 (라인 색상, 두께, 알림)
+# - 멀티 타임프레임 지원
+# - 명확한 트렌드 전환 신호
+
+# GitHub: https://github.com/marbotek/Three-Line-Break/releases
+```
+
+### EABTCGrid (MQL4)
+**Location**: `EABTCGrid/`
+```bash
+# 비트코인 그리드 트레이딩 EA v5.1 - 멀티타임프레임 + EMA 전략
+
+# 주요 전략
+# - ATR 기반 동적 그리드 간격
+# - EMA 크로스오버 신호 (12/26/9 기본값)
+# - 변동성 필터링
+# - 트레일링 스톱
+# - 자동 Lot 크기 조정
+
+# 타임프레임 모드
+# - M5: 고빈도 매매
+# - M15: 균형 잡힌 설정 (권장)
+# - H1: 안정적 운용
+# - H4: 보수적 전략
+
+# 리스크 관리
+# - 최대 주문 수 제한
+# - 자산 손실률 정지 (기본 15%)
+# - 자동 레벨 갱신
+
+# 파일: EABTCShidiqMtp.mq4
+# 개발: qhusi + ChatGPT Enhanced
+```
+
+### MTx_EA_framework (MT4/MT5)
+**Location**: `MTx_EA_framework/`
+```bash
+# 크로스 플랫폼 EA 개발 프레임워크 (모듈형 아키텍처 + 단위 테스트)
+
+# 환경 설정
+export MT4_TARGET_DIR=/path/to/mt4
+export MT5_TARGET_DIR=/path/to/mt5
+
+# 심볼릭 링크 생성
+./make_link.sh          # MT4용
+./make_link_mt5.sh      # MT5용
+# WSL: make_link_wsl.sh 사용
+
+# 모듈 구조
+# - my-mt4-infra / my-mt5-infra: 기본 인프라
+# - my-mtx-infra-commons: 공통 컴포넌트
+# - my-mt4-auto-trader: 자동 매매 시스템
+# - my-mt4-multiple-signals: 복합 신호 통합
+# - my-mt4-filter: 신호 필터링
+# - my-mt4-mocker: 테스팅 프레임워크
+
+# 테스트 실행
+# Scripts/{module_name}/run_unittest.mq4 (MT4)
+# Scripts/{module_name}/run_unittest.mq5 (MT5)
+
+# 특징
+# - 테스트 주도 개발 (TDD)
+# - MQLUNIT 프레임워크 통합
+# - 높은 재사용성과 유지보수성
+# - 확장 가능한 설계
+```
 
 ### Awesome Claude Code (Python)
 **Location**: `awesome-claude-code/`
@@ -79,21 +211,24 @@ python scripts/validate_links.py       # Validate all resource links
 python scripts/add_resource.py         # Add new resource
 ```
 
-### SuperClaude Framework (Python)
-**Location**: `SuperClaude_Framework/`
+### Korean Forex Analysis System (Node.js)
+**Location**: `저작권/daniel8824-del_korea-forex/`
 ```bash
-# Installation
-pip install -e .
+# Install dependencies
+npm install
 
-# Run SuperClaude CLI
-SuperClaude             # CLI entry point
+# Run daily FX prediction system
+python daily_fx_prediction.py
 
-# Development mode
-python -m SuperClaude   # Run as module
+# Test the FX API
+open test_fx_api.html    # Open in browser to test
+
+# API server
+python api.py           # Start API server for FX data
 ```
 
 ### Web Projects (Node.js/TypeScript)
-**Location**: `wjswkcp-ebook-creator/`, `bazi-calculator-by-alvamind/`
+**Location**: `bazi-calculator-by-alvamind/`
 ```bash
 # Install dependencies
 npm install
@@ -101,21 +236,34 @@ npm install
 bun install             
 
 # Development
-npm run dev            # Start development server
-npm run build          # Build for production
-npm run lint           # Lint code (if configured)
-npm test               # Run tests (if configured)
+npm run build           # Build TypeScript to dist/
+npm run lint           # Lint TypeScript code
+npm run format         # Format code with prettier
+npm run source         # Generate documentation
+npm run commit         # Commit using custom tool
+npm run clean          # Clean build artifacts
+
+# Publishing
+npm run publish-npm    # Publish to npm with version bump
 ```
 
-### TikTok Automation Tools (Python)
-**Location**: `TikTokAutoUploader/`, `tiktok-autouploader/`
+### Security Research Projects
+**Location**: `저작권/AI-Security-Projects-Downloaded/`
 ```bash
-# Install requirements
-pip install -r requirements.txt
+# Contains downloaded security research projects including:
+# - h4cker: Cybersecurity learning materials and tools
+# - AI-Security-Projects-50k-Stars: High-starred security projects
+# - FATE: Federated AI Technology Enabler
+# - sherlock: Social media username investigation tool
+```
 
-# Run automation (check specific README in each directory)
-python run.py           # Main automation script
-python TikTok_Uploader.py  # Alternative uploader
+### Medusa Security Scanner
+**Location**: Various locations as per Medusa 사용법 상세 가이드.hwpx
+```bash
+# Basic Medusa usage for security testing
+./medusa -h                              # Show help
+./medusa -H hosts.txt -U users.txt -P passwords.txt -M ssh
+MEDUSA_MODULE_PATH=/path/to/modules ./medusa -d  # Debug mode
 ```
 
 ### Korean Contact Management Tools (Python)
@@ -128,6 +276,15 @@ pip install -r requirements.txt
 python excel_to_vcf_converter.py    # Convert Excel to VCF format
 python phone_data_manager.py        # Manage phone contact data
 python kakao_contact_manager_gui.py # GUI for KakaoTalk contacts
+
+# Windows EXE creation
+python build_windows_exe.py         # Create Windows executable
+python create_windows_package.py    # Create packaged distribution
+
+# Korean-specific tools
+python korean_font_manager.py       # Manage Korean fonts
+python korean_typography.py         # Korean text processing utilities
+python enhanced_korean_search.py    # Enhanced search for Korean content
 ```
 
 ### Document Processing and Conversion (Python)
@@ -137,20 +294,74 @@ python kakao_contact_manager_gui.py # GUI for KakaoTalk contacts
 python pdf_to_txt_converter.py      # Basic PDF to text conversion
 python pdf_to_txt_advanced.py       # Advanced PDF processing with OCR
 python pdf_to_txt_ocr.py            # OCR-specific processing
+python pdf_final_converter.py       # Final converter with all features
+
+# Text and document conversion
+python txt_to_pdf_converter.py      # Convert text files to PDF
+python hwp_to_pdf_converter.py      # Convert Korean HWP files to PDF
 
 # Image processing
 python resize_image.py               # Image resizing utilities
+
+# Data collection and analysis
+python kosis_api_client.py          # Korean Statistical Information Service API client
+python korean_mql4_repos.py         # Analyze Korean MQL4 repositories
 ```
 
 ## Architecture and Code Organization
 
 ### Trading Systems Architecture
 - **EA31337**: Advanced modular expert advisor framework
+  - Location: `저작권/work/01_HIGH_PRIORITY/EA31337/`
   - `src/EA31337.mq4/.mq5`: Main EA source files
   - `src/include/`: Shared header files and includes
   - `sets/`: Optimized parameter sets for different strategies
   - Mode-based compilation system supporting Lite/Advanced/Rider variants
   - Cross-platform compilation using Wine + MetaEditor on Linux/macOS
+  - Comprehensive testing and backtesting capabilities
+  
+- **EA31337 Classes**: Supporting framework library
+  - Location: `저작권/work/01_HIGH_PRIORITY/EA31337-classes/`
+  - Extensive library with 80+ indicators, account management, chart analysis
+  - Modular architecture with Account, Buffer, Chart, Indicator, Strategy modules
+  - Advanced features: 3D visualization, database support, serialization
+
+- **SpanModelTrader**: Japanese technical analysis EA (Ichimoku + Super Bollinger)
+  - Location: `SpanModelTrader/`
+  - 3-signal filter system with multi-timeframe analysis
+  - Optimized for JPY pairs on H1 timeframe
+
+- **Trailing-Stop-on-Profit**: Automated trailing stop EA (EarnForex)
+  - Location: `Trailing-Stop-on-Profit/`
+  - Cross-platform: MT4, MT5, cTrader
+  - Trails stop-loss only after profit threshold reached
+
+- **Show-Time-To-Close-Indicator**: Real-time candle countdown (TFLab)
+  - Location: `Show-Time-To-Close-Indicator-Metatrader/`
+  - Live countdown timer for all timeframes
+  - Essential for precise timing strategies
+
+- **Three-Line-Break**: Price action chart indicator (marbotek)
+  - Location: `Three-Line-Break/`
+  - Unique trend visualization method
+  - Clear reversal signals
+
+- **EABTCGrid**: Bitcoin grid trading EA v5.1
+  - Location: `EABTCGrid/`
+  - ATR-based dynamic grid spacing
+  - EMA crossover strategy with volatility filtering
+  - Multiple timeframe modes (M5/M15/H1/H4)
+
+- **MTx_EA_framework**: Professional EA development framework
+  - Location: `MTx_EA_framework/`
+  - Modular architecture for MT4/MT5
+  - Unit testing with MQLUNIT
+  - TDD-oriented development workflow
+
+- **MQL4 Collections**: Legacy trading systems and indicators
+  - `github-mql4-collection/`: 100+ community expert advisors
+  - `mql4_experts/`, `mql4-template/`: Template and example systems
+  - Wide variety of trading strategies and technical indicators
 
 
 ### Web Development Structure
@@ -159,14 +370,19 @@ python resize_image.py               # Image resizing utilities
 - **Component Architecture**: Reusable component libraries and design systems
 
 ### Korean Content Management
-- **Multi-format Support**: HWP, Markdown, and various Korean document formats
-- **Encoding**: UTF-8 throughout with proper Korean character support
+- **Multi-format Support**: HWP, Markdown, PDF, and various Korean document formats
+- **Encoding**: UTF-8 throughout with proper Korean character support  
 - **Publishing Pipeline**: Content creation → Review → Publication workflows
+- **Document Conversion**: HWP ↔ PDF, text processing, OCR capabilities
+- **Contact Management**: Excel to VCF conversion, KakaoTalk integration
+- **Typography**: Korean font management and text rendering
 
 ### Security Research Collection
 - **Educational Resources**: Comprehensive cybersecurity learning materials
 - **Analysis Tools**: Security analysis and penetration testing resources
 - **Research Organization**: Categorized by security domains and skill levels
+- **AI Security Focus**: Machine learning security, federated learning projects
+- **Penetration Testing**: Username investigation, vulnerability scanning tools
 
 ## Development Conventions
 
@@ -202,26 +418,39 @@ python resize_image.py               # Image resizing utilities
 ## Key File Locations
 
 ### Trading Systems
-- EA31337 main source: `EA31337/src/EA31337.mq4` and `EA31337/src/EA31337.mq5`
+- EA31337 main source: `저작권/work/01_HIGH_PRIORITY/EA31337/src/EA31337.mq4` and `.mq5`
+- EA31337 classes library: `저작권/work/01_HIGH_PRIORITY/EA31337-classes/`
+- SpanModelTrader: `SpanModelTrader/` (Ichimoku + Super Bollinger EA)
+  - Main EA: `SpanModelTrader/Experts/SpanModelTrader.mq4`
+  - Indicators: `SpanModelTrader/Indicators/*.mq4`
+  - Libraries: `SpanModelTrader/Libraries/SMT000*.ex4`
+  - Documentation: `SpanModelTrader/README.md`
 - MQL4 collections: `github-mql4-collection/` and `mql4_experts/`
 - Trading templates and utilities: `mql4-template/`, `ma-cross-ea/`
-
+- Other MQL4 EAs: `Trailing-Stop-on-Profit/`, `Show-Time-To-Close-Indicator-Metatrader/`, `EABTCGrid/`, `MTx_EA_framework/`, `Three-Line-Break/`
+- Korean forex analysis: `저작권/daniel8824-del_korea-forex/`
+- Custom trading EAs: `저작권/work/` (various MQL4 files)
 
 ### Web Development
-- E-book creator: `wjswkcp-ebook-creator/`
 - Bazi calculator: `bazi-calculator-by-alvamind/`
 - Static web examples: `popup.html`
+
+### Security Research
+- Downloaded projects: `저작권/AI-Security-Projects-Downloaded/`
+- h4cker materials: Cybersecurity guides and tools
+- AI security projects: FATE, sherlock, differential privacy
 
 ### Documentation and Content
 - Project documentation: `Documents/`, `md/`
 - Korean language content: `hwp/`, `저작권/`
 - Technical manuals: `manual/`
-- SuperClaude framework docs: `SuperClaude_Framework/Docs/`
+- Resource collection: `awesome-claude-code/`
 
-### Automation Tools
-- TikTok automation: `TikTokAutoUploader/`, `tiktok-autouploader/`
-- Contact management: Various Python scripts in `저작권/`
-- Data conversion utilities: Scattered across multiple directories
+### Korean Management Tools
+- Contact management: `저작권/contacts/`, conversion scripts
+- Document processing: PDF, HWP, text conversion utilities
+- Typography and fonts: Korean-specific text handling
+- Data analysis: KOSIS API, repository analysis tools
 
 ## Environment Setup and Dependencies
 
@@ -292,12 +521,20 @@ npm run build && npm run preview
 
 ### Trading System Testing
 ```bash
-# Run EA31337 backtests
-make Backtest           # Build backtest versions
-# Use MetaTrader Strategy Tester for comprehensive testing
+# EA31337 automated testing (requires wine64)
+cd 저작권/work/01_HIGH_PRIORITY/EA31337
+make requirements       # Check dependencies
+make test              # Run automated tests with MetaEditor
+make Backtest          # Build backtest versions
+make Optimize          # Build optimization versions
 
-# Parameter optimization
-make Optimize           # Build optimization versions
+# Manual testing in MetaTrader Strategy Tester
+# Load generated .ex4/.ex5 files into MetaTrader
+# Configure test parameters and run backtests
+
+# Security testing with Medusa
+./medusa -h                              # Show help
+./medusa -H hosts.txt -U users.txt -P passwords.txt -M ssh
 ```
 
 ### Python Testing
@@ -361,4 +598,43 @@ tail -f application.log
 - **Korean Content**: Ensure proper Git configuration for Korean file names
 - **Binary Files**: Be selective about which compiled files to include in version control
 
-This workspace represents a sophisticated multi-domain development environment with particular strengths in financial technology, web development automation, and Korean language processing. The modular architecture allows independent development of different components while sharing common infrastructure and utilities.
+## Project Structure and Priorities
+
+### Priority-Based Organization
+- **01_HIGH_PRIORITY**: `저작권/work/01_HIGH_PRIORITY/` - Active EA31337 development
+- **02_MEDIUM_PRIORITY**: `저작권/work/02_MEDIUM_PRIORITY/` - Secondary projects  
+- **03_LOW_PRIORITY**: `저작권/work/03_LOW_PRIORITY/` - Experimental or archived work
+
+### Specialized Directories
+- **Korean Content**: `저작권/` - All Korean language and localization work
+- **Security Research**: `저작권/AI-Security-Projects-Downloaded/` - Educational cybersecurity materials
+- **Resource Collection**: `awesome-claude-code/` - Claude Code community resources
+- **Documentation**: `md/`, `Documents/`, `manual/` - Project documentation
+
+### Common File Patterns
+- **MQL4/MQL5**: `.mq4`, `.mq5`, `.ex4`, `.ex5` files for MetaTrader
+- **Korean Documents**: `.hwp`, `.hwpx` files (Korean HWP format)
+- **Build Artifacts**: Look for `Makefile`, `package.json`, `pyproject.toml`
+- **Configuration**: `requirements.txt`, `tsconfig.json`, `docker-compose.yml`
+
+## Important Development Notes
+
+### Cross-Platform Considerations
+- **MetaTrader Development**: Requires Wine64 on Linux/macOS for MQL compilation
+- **Korean Language Support**: UTF-8 encoding essential, requires Korean fonts
+- **Document Formats**: HWP files need special handling, PDF conversion available
+- **Contact Data**: Large VCF files generated in batches for phone contact management
+
+### Security and Compliance
+- **Educational Use Only**: All trading systems are for learning and backtesting
+- **Security Research**: Downloaded materials are for educational cybersecurity learning
+- **Korean Regulations**: Document formats and business registration compliance
+- **Data Privacy**: Contact management tools handle personal information responsibly
+
+### Performance Considerations
+- **Large File Collections**: 500+ VCF contact files, extensive MQL4 collections
+- **Memory Usage**: OCR and PDF processing require significant resources
+- **Korean Text Processing**: Font rendering and encoding require special attention
+- **Trading System Compilation**: MetaEditor compilation can be resource-intensive
+
+This workspace represents a sophisticated multi-domain development environment with particular strengths in financial technology, cybersecurity research, and Korean language processing. The modular architecture supports both individual project development and integrated workflows across different domains.
